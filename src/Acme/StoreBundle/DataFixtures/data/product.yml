@@ -1,0 +1,21 @@
+products:
+    Gibson:
+        name: Gibson
+        price: 1000
+        description: To play rock
+        category: 1
+    Jackson:
+        name: Jackson
+        price: 1200
+        description: To play metal
+        category: 1
+    Tama:
+        name: Tama
+        price: 500
+        description: To play anything you want
+        category: 2
+    Some_keys:
+        name: KeyBoard1
+        price: 400
+        description: To play anything you want
+        category: 3
