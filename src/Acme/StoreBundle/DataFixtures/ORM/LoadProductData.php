@@ -31,6 +31,9 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
                 ->setPrice($productItem['price'])
                 ->setDescription($productItem['description'])
                 ->setCategory($this->getReference((int)$productItem['category']));
+            foreach($productItem['colors'] as $color){
+                $productObject->addColor($this->getReference($color));
+            }
 
             $manager->persist($productObject);
         }
@@ -44,6 +47,6 @@ class LoadProductData extends AbstractFixture implements OrderedFixtureInterface
 
     public function getOrder()
     {
-        return 2;
+        return 3;
     }
 } 

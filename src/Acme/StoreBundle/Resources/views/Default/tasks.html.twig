@@ -2,8 +2,9 @@
 
 {% block content %}
     <div class="alert alert-info">
-        {% for product in products %}
-            <p>{{ product.name }}'s description: {{ product.description }}</p>
+        <strong>Tasks</strong>
+        {% for task in tasklist %}
+            <p>{{ task }}</p>
         {% endfor %}
     </div>
 {% endblock %}

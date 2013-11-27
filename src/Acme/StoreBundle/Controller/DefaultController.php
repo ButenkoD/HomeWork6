@@ -9,7 +9,7 @@ use Acme\StoreBundle\Entity\Category;
 
 class DefaultController extends Controller
 {
-    public function homeAction()
+    public function tasksAction()
     {
         $taskArray = array(
             'Research about DB',
@@ -17,7 +17,7 @@ class DefaultController extends Controller
             'Use Fixtures'
         );
 
-        return $this->render('AcmeStoreBundle:Default:home.html.twig', array('tasklist' => $taskArray));
+        return $this->render('AcmeStoreBundle:Default:tasks.html.twig', array('tasklist' => $taskArray));
     }
 
     public function createAction()
@@ -25,22 +25,25 @@ class DefaultController extends Controller
         $em = $this->getDoctrine()->getManager();
 
         $product = new Product();
-        $product->setName("Guitar4");
-        $product->setPrice(888);
-        $product->setDescription("To play black metal for the Satan's glory");
+        $product->setName("Ibanez")
+            ->setPrice(888)
+            ->setDescription("To play metal (nu-metal)");
 
         $category = $em
             ->getRepository("AcmeStoreBundle:Category")
-            ->findOneBy(array('id'=>2));
+            ->findOneBy(array('id'=>1));
+        $color = $em
+            ->getRepository("AcmeStoreBundle:Color")
+            ->findOneBy(array('id'=>3));
 
-        $product->setCategory($category);
+        $product->setCategory($category)
+             ->addColor($color);
 
         $em->persist($product);
-        $em->persist($category);
         $em->flush();
 
-        return new Response('item #'.$product->getId()." was added to ".$category->getId().'th category' );
-        #$this->render('AcmeStoreBundle:Default:index.html.twig', array('name' => $name));
+        return $this->redirect($this->generateURL('_show_route', array('id' => $product->getId())));
+        #return $this->showAction($product->getId());
     }
 
     public function showAction($id)
@@ -48,19 +51,16 @@ class DefaultController extends Controller
         $repository = $this->getDoctrine()
             ->getRepository("AcmeStoreBundle:Product");
 
-        $product = $repository
-            ->findOneBy(array('id'=>$id));
-
-        if(!$product) {
-            throw $this->createNotFoundException(
-                "Couldn't find item"
-            );
+        if(isset($id)){
+            $product[] = $repository
+                ->findOneBy(array('id'=>$id));
+        }
+        else {
+            $product = $repository
+                ->findAll();
         }
 
-        return $this->render('AcmeStoreBundle:Default:show.html.twig', array(
-            'product' => $product,
-            'category' => $product->getCategory()
-        ));
+        return $this->render('AcmeStoreBundle:Default:show.html.twig', array('products' => $product));
     }
 
     public function showDescriptionAction($id)
@@ -68,33 +68,68 @@ class DefaultController extends Controller
         $repository = $this->getDoctrine()
             ->getRepository("AcmeStoreBundle:Product");
 
-        $product = $repository
-            ->findOneBy(array('id'=>$id));
+        if(isset($id)) {
+            $product[] = $repository
+                ->findOneBy(array('id'=>$id));
+        }
+        else {
+            $product = $repository
+                ->findAll();
+        }
 
-        return $this->render('AcmeStoreBundle:Default:showDescription.html.twig', array('product' => $product));
+        return $this->render('AcmeStoreBundle:Default:showDescription.html.twig', array('products' => $product));
+    }
+
+    public function showColorAction($id)
+    {
+        $repository = $this->getDoctrine()
+            ->getRepository("AcmeStoreBundle:Product");
+
+        if(isset($id)) {
+            $product[] = $repository
+                ->findOneBy(array('id'=>$id));
+        }
+        else {
+            $product = $repository
+                ->findAll();
+        }
+
+        return $this->render('AcmeStoreBundle:Default:showColor.html.twig', array('products' => $product));
     }
 
     public function updateAction($id)
     {
-        $em = $this->getDoctrine()->getManager();
-        $product = $em->getRepository("AcmeStoreBundle:Product")
-            ->find($id);
-        $product->setName("Booze");
-        $em->flush();
+        if(!isset($id)){
+            throw $this->createNotFoundException(
+                'You must set "id" in URL'
+            );
+        }
+        else {
+            $em = $this->getDoctrine()->getManager();
+            $product = $em->getRepository("AcmeStoreBundle:Product")
+                ->find($id);
+            $product->setName("Booze");
+            $em->flush();
 
-        #return new Response('updated');
-        return $this->redirect($this->generateURL("_show_route", array("id" => $id)));
+            return $this->redirect($this->generateURL("_show_route", array("id" => $id)));
+        }
     }
 
     public function removeAction($id)
     {
+        if(!isset($id)){
+            throw $this->createNotFoundException(
+                'You must set "id" in URL'
+            );
+        }
+        else {
+            $em = $this->getDoctrine()->getManager();
+            $product = $em->getRepository("AcmeStoreBundle:Product")
+                ->find($id);
+            $em->remove($product);
+            $em->flush();
 
-        $em = $this->getDoctrine()->getManager();
-        $product = $em->getRepository("AcmeStoreBundle:Product")
-            ->find($id);
-        $em->remove($product);
-        $em->flush();
-
-        return new Response('Deleted');
+            return $this->redirect($this->generateURL('_show_route'));
+        }
     }
 }

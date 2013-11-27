@@ -3,7 +3,11 @@
 {% block content %}
     <div class="alert alert-info">
         {% for product in products %}
-            <p>{{ product.name }}'s description: {{ product.description }}</p>
+            <p>{{ product.name }} is
+                {% for color in product.getColors() %}
+                    {{ color.getColor() }}
+                {% endfor %}
+            </p>
         {% endfor %}
     </div>
 {% endblock %}

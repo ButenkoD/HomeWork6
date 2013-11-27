@@ -2,6 +2,7 @@
 
 namespace Acme\StoreBundle\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
@@ -47,6 +48,44 @@ class Product
      * @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      */
     private $category;
+
+    /**
+     * @ORM\ManyToMany(targetEntity="Color", inversedBy="products")
+     * @ORM\JoinTable(name="products_colors")
+     */
+    private $colors;
+
+    public function __construct()
+    {
+        $this->colors = new ArrayCollection;
+    }
+
+    /**
+     * @param $Color
+     * @return Color
+     */
+    public function addColor($color)
+    {
+        $this->colors[] = $color;
+
+        return $color;
+    }
+
+    /**
+     *
+     */
+    public function removeColor($color)
+    {
+        $this->colors->removeElement($color);
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getColors()
+    {
+        return $this->colors;
+    }
 
 
     /**

@@ -4,18 +4,29 @@ products:
         price: 1000
         description: To play rock
         category: 1
+        colors:
+            - b
+            - w
+
     Jackson:
         name: Jackson
         price: 1200
         description: To play metal
         category: 1
+        colors:
+            - w
     Tama:
         name: Tama
         price: 500
         description: To play anything you want
         category: 2
+        colors:
+            - r
+            - b
     Some_keys:
         name: KeyBoard1
         price: 400
         description: To play anything you want
         category: 3
+        colors:
+            - r

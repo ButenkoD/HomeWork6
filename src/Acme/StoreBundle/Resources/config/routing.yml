@@ -1,6 +1,6 @@
-_home_route:
+_tasks_route:
     pattern:  /
-    defaults: { _controller: AcmeStoreBundle:Default:home }
+    defaults: { _controller: AcmeStoreBundle:Default:tasks }
 
 _create_route:
     pattern: /create
@@ -8,16 +8,20 @@ _create_route:
 
 _show_route:
     pattern: /show/{id}
-    defaults: { _controller: AcmeStoreBundle:Default:show, id: 1 }
+    defaults: { _controller: AcmeStoreBundle:Default:show, id: null }
 
 _show_description_route:
-    pattern: /showdescription/{id}
-    defaults: { _controller: AcmeStoreBundle:Default:showDescription, id: 1 }
+    pattern: /show_description/{id}
+    defaults: { _controller: AcmeStoreBundle:Default:showDescription, id: null}
+
+_show_color_route:
+    pattern: /show_color/{id}
+    defaults: { _controller: AcmeStoreBundle:Default:showColor, id: null}
 
 _update_route:
     pattern: /update/{id}
-    defaults: { _controller: AcmeStoreBundle:Default:update }
+    defaults: { _controller: AcmeStoreBundle:Default:update, id: null }
 
 _remove_route:
     pattern: /remove/{id}
-    defaults: { _controller: AcmeStoreBundle:Default:remove }
+    defaults: { _controller: AcmeStoreBundle:Default:remove, id: null }
