@@ -1,0 +1,10 @@
+{% extends 'AcmeStoreBundle:Default:layout.html.twig' %}
+
+{% block content %}
+    <div class="alert alert-info">
+       {#  <p>Product #{{ product.id }} {{ product.name }} belongs to {{ category.name }} category</p> #}
+        {% for product in products %}
+            <p>Product #{{ product.id }} {{ product.name }} belongs to {{ product.getCategory().getName }} category</p>
+        {% endfor %}
+    </div>
+{% endblock %}

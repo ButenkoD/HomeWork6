@@ -1,0 +1,10 @@
+{% extends 'AcmeStoreBundle:Default:layout.html.twig' %}
+
+{% block content %}
+    <div class="alert alert-info">
+        <strong>Tasks</strong>
+        {% for task in tasklist %}
+            <p>{{ task }}</p>
+        {% endfor %}
+    </div>
+{% endblock %}

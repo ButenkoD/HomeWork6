@@ -1,0 +1,27 @@
+_tasks_route:
+    pattern:  /
+    defaults: { _controller: AcmeStoreBundle:Default:tasks }
+
+_create_route:
+    pattern: /create
+    defaults: { _controller: AcmeStoreBundle:Default:create }
+
+_show_route:
+    pattern: /show/{id}
+    defaults: { _controller: AcmeStoreBundle:Default:show, id: null }
+
+_show_description_route:
+    pattern: /show_description/{id}
+    defaults: { _controller: AcmeStoreBundle:Default:showDescription, id: null}
+
+_show_color_route:
+    pattern: /show_color/{id}
+    defaults: { _controller: AcmeStoreBundle:Default:showColor, id: null}
+
+_update_route:
+    pattern: /update/{id}
+    defaults: { _controller: AcmeStoreBundle:Default:update, id: null }
+
+_remove_route:
+    pattern: /remove/{id}
+    defaults: { _controller: AcmeStoreBundle:Default:remove, id: null }

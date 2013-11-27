@@ -1,0 +1,39 @@
+{% extends "::base.html.twig" %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" href="{{ asset('mystyle.css') }}" />
+{% endblock %}
+
+{% block body %}
+    {% block navbar %}
+        <div class="navbar navbar-inverse">
+            <div class="container">
+                <div class="navbar-header">
+                    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+                        <span class="sr-only">Toggle navigation</span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                        <span class="icon-bar"></span>
+                    </button>
+                    <a class="navbar-brand" href="#">HomeWork</a>
+                </div>
+                <div class="navbar-collapse collapse">
+                    <ul class="nav navbar-nav">
+                        <li><a href="{{ path('_tasks_route') }}">Tasks</a></li>
+                        <li><a href="{{ path('_show_route') }}">Show Category</a></li>
+                        <li><a href="{{ path('_show_description_route') }}">Show description</a></li>
+                        <li><a href="{{ path('_show_color_route') }}">Show color</a></li>
+                        <li><a href="{{ path('_create_route') }}">Create</a></li>
+                        <li><a href="{{ path('_update_route') }}">Update</a></li>
+                        <li><a href="{{ path('_remove_route') }}">Remove</a></li>
+                    </ul>
+                </div><!--/.nav-collapse -->
+            </div>
+        </div>
+    {% endblock %}
+    {% block content %}{% endblock %}
+{% endblock %}
+
+{% block javascripts %}
+    <script src="{{ asset('myjs.js') }}"></script>
+{% endblock %}

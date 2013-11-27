@@ -1,0 +1,13 @@
+{% extends 'AcmeStoreBundle:Default:layout.html.twig' %}
+
+{% block content %}
+    <div class="alert alert-info">
+        {% for product in products %}
+            <p>{{ product.name }} is
+                {% for color in product.getColors() %}
+                    {{ color.getColor() }}
+                {% endfor %}
+            </p>
+        {% endfor %}
+    </div>
+{% endblock %}
